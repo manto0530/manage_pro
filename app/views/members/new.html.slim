@@ -1,0 +1,18 @@
+.container
+  = form_for(@project_user_relationship, url: project_members_path, method: :post) do |f|
+    - if @project_user_relationship.errors.any?
+      #error-explanation
+        ul
+          - @project_user_relationship.errors.each do |message|
+            li = message
+
+    .field.mb-3
+      = f.label :user
+      = f.select :user_id, (User.all - @project.users).collect { |u| [u.name, u.id] }, { required: true }, class: 'form-control'
+
+    .field.mb-3
+      = f.label :incharge
+      = f.select :incharge, [true, false], {}, class: "form-control"
+
+    .actions
+      = f.submit "Add User", class: "btn btn-primary"

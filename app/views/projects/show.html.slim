@@ -1,0 +1,52 @@
+.container
+  p#notice = notice
+
+  p
+    strong Name:
+    = @project.name
+  p
+    strong Description:
+    = @project.description
+
+  .row
+    .col.col-6.col-sm-6.col-md-6.col-lg-6
+        h1 Members in #{@project.name}
+        table.table
+          thead
+            tr
+              th Name
+              th Email
+          tbody
+          - @project.users.each do |user|
+            tr
+              td = user.name
+              td = user.email
+        = link_to "New member", project_new_member_path(@project), class: "btn btn-success"
+    .col.col-6.col-sm-6.col-md-6.col-lg-6
+        h1 Listing tasks for #{@project.name}
+
+        table.table
+          thead
+            tr
+              th Name
+              th Description
+              th User
+              th
+              th
+              th
+
+          tbody
+            - @project.tasks.each do |task|
+              tr
+                td = task.name
+                td = task.description
+                td = task.user.name
+                td = link_to 'Show', project_task_path(@project, task)
+                td = link_to 'Edit', edit_project_task_path(@project, task)
+                td = link_to 'Destroy', project_task_path(@project, task), data: { confirm: 'Are you sure?' }, method: :delete
+        = link_to "New Task", new_project_task_path(@project), class: "btn btn-success"
+
+  .mt-4
+    => link_to 'Edit', edit_project_path(@project)
+    '|
+    =< link_to 'Back', projects_path

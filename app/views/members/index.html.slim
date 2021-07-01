@@ -1,0 +1,12 @@
+.container
+  h1 Members in #{@project.name}
+  table.table
+    thead
+      tr
+        th Name
+        th Email
+    tbody
+    - @project.users.each do |user|
+      tr
+        td = user.name
+        td = user.email

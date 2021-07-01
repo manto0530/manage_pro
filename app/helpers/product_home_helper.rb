@@ -1,0 +1,2 @@
+module ProductHomeHelper
+end
